@@ -43,6 +43,7 @@ export abstract class Endpoint extends EventEmitter {
      * @param callback Transfer completion callback.
      */
     public makeTransfer(timeout: number, callback: (error: LibUSBException | undefined, buffer: Buffer, actualLength: number) => void): Transfer {
+        this.transferType = (this.transferType ?? 2) & 0x03;
         return new Transfer(this.device, this.address, this.transferType, timeout, callback);
     }
 }
